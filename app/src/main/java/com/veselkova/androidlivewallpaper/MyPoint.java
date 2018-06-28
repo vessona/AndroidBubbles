@@ -1,3 +1,4 @@
+
 package com.veselkova.androidlivewallpaper;
 
 public class MyPoint

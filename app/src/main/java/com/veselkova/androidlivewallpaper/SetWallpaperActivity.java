@@ -1,31 +1,47 @@
 package com.veselkova.androidlivewallpaper;
-
-import android.app.WallpaperManager;
 import android.content.ComponentName;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
-public class SetWallpaperActivity extends AppCompatActivity {
+import com.veselkova.androidlivewallpaper.MyWallpaperService;
+import com.veselkova.androidlivewallpaper.R;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_set_wallpaper);
+public class SetWallpaperActivity extends AppCompatActivity
+{
+    public static int colorBg = -1;
 
-        //Intent intent = new Intent(this, MyPreferencesActivity.class);
-       // startActivity(intent);
-
-
+    public void onClick(View paramView)
+    {
+        Intent intent = new Intent("android.service.wallpaper.CHANGE_LIVE_WALLPAPER");
+        intent.putExtra("android.service.wallpaper.extra.LIVE_WALLPAPER_COMPONENT", new ComponentName(this, MyWallpaperService.class));
+        startActivity(intent);
     }
 
-    public void onClick(View view)
+    protected void onCreate(Bundle paramBundle)
     {
-        Intent intent = new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
-        intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
-                new ComponentName(this, MyWallpaperService.class));
-        startActivity(intent);
-
+        getWindow().getDecorView().setBackgroundColor(-1);
+        super.onCreate(paramBundle);
+        setContentView(R.layout.activity_set_wallpaper);
+        ((Button)findViewById(R.id.btnBlack)).setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View paramAnonymousView)
+            {
+                SetWallpaperActivity.colorBg = Color.BLACK;
+                Log.d("btnBlack", "btnBlack clicked");
+            }
+        });
+        ((Button)findViewById(R.id.btnWhite)).setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View paramAnonymousView)
+            {
+                SetWallpaperActivity.colorBg = Color.WHITE;
+                Log.d("btnWhite", "btnWhite clicked");
+            }
+        });
     }
 }
