@@ -9,7 +9,7 @@ import android.graphics.Path;
 import android.view.View;
 
 public class Heart extends View {
-
+ //test //test
     private Path path;
 
     private Paint paint;
